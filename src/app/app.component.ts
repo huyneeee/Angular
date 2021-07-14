@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { data } from 'src/data';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,8 @@ import { data } from 'src/data';
 })
 export class AppComponent {
   title = 'trainning';
-  products = data;
-  addItem(event:any){
-    this.products.push(event)
-  }
+  // products = data;
+  // addItem(event:any){
+  //   this.products.push(event)
+  // }
 }

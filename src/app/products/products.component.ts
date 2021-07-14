@@ -1,4 +1,5 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ProductsService } from '../products.service';
 
 import { Product } from './product';
 
@@ -8,32 +9,39 @@ import { Product } from './product';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  
+
   // products: Product[] = data
-  @Input () products : Product[] ;
+  // @Input () products : Product[] ;
+  products: Product[]
 
-  
 
-  productDetail : Product
 
-  constructor() {
-   }
+  productDetail: Product
+
+  constructor(private productsService: ProductsService) {
+  }
 
   ngOnInit(): void {
+   this.productsService.getProduct().subscribe(data=>{
+     this.products = data;
+   })
   }
-  onHandleClick(id:Number){
-    this.products = this.products.filter(ele=>ele.id!=id)
+
+  onHandleClick(id: Number) {
+
+    // console.log('click delete');
+    // this.products = this.productsService.productDelete(id);
+    // this.products = this.products.filter(ele=>ele.id!=id)
   }
-  // onHandleClick(){
-  //   console.log('click');
-  //   this.product.status = !this.product.status;
-  // }
+
   // onHandleKeyPress(e:any){
   //   this.product.content = e.target.value
   // }
 
-  onHandleDetail(product:Product){
-    this.productDetail = product
+  onHandleDetail(product: Product) {
+    // this.productDetail = this.productsService.productDetail(product);
+
+    // this.productDetail = product
   }
 
 }
