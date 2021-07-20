@@ -14,15 +14,17 @@ export class ProductsService {
   getProduct() : Observable<Product[]>{
     return this.http.get<Product[]>(this.api)
   }
-  // productDelete(id: Number) {
-  //   this.products = this.products.filter(ele => ele.id != id);
-  //   return this.products
-  // }
-  // productDetail(product: Product){
-  //   return product;
-  // }
-  // productAdd(product:Product){
-  //   this.products.push(product);
-  // }
+  productDelete(id: Number) : Observable<Product> {
+    return this.http.delete<Product>(`${this.api}/${id}`)
+  }
+  productDetail(id: Number) : Observable<Product> {
+    return this.http.get<Product>(`${this.api}/${id}`)
+  }
+  productAdd(product:Product) : Observable<Product>{
+    return this.http.post<Product>(this.api,product);
+  }
+  productEdit(product:Product) : Observable<Product>{
+    return this.http.put<Product>(`${this.api}/${product.id}`,product)
+  }
 }
 

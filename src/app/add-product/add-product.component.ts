@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsService } from '../products.service';
 import { Product } from '../products/product';
 
@@ -9,22 +10,31 @@ import { Product } from '../products/product';
 })
 export class AddProductComponent implements OnInit {
 
-  // product: Product = new Product();
 
-  constructor(private productService : ProductsService) { }
-  product : Product = {
-    id : Math.floor(Math.random() * 101),
-    name : 'product 1',
-    description : 'mo ta san pham',
-    price : 0,
-    quantity : 0,
-    image : 'https://thuvienhuongdan.com/contents/upload/images/jean.k/images/meo/h4.png',
-    status : true 
-  } 
-  
-  ngOnInit(): void {
+  constructor(private productService: ProductsService ,
+    private router : Router
+  ) {
   }
-  addProduct(){
-  //   this.productService.productAdd(this.product);
+  products: Product[]
+  product: Product = {
+    id: Math.floor(Math.random() * 101),
+    name: 'product 1',
+    description: 'mo ta san pham',
+    price: 0,
+    quantity: 0,
+    image: 'https://thuvienhuongdan.com/contents/upload/images/jean.k/images/meo/h4.png',
+    status: true
+  }
+
+  ngOnInit(): void {
+    this.productService.getProduct().subscribe(data => {
+      this.products = data;
+    })
+  }
+  addProduct() {
+    this.productService.productAdd(this.product).subscribe(data => {
+      this.products.push(data);
+      this.router.navigateByUrl('/product');
+    })
   }
 }

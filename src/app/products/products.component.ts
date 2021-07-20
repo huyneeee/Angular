@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   // @Input () products : Product[] ;
   products: Product[]
 
-
+  setModal : Boolean = false;
 
   productDetail: Product
 
@@ -28,20 +28,17 @@ export class ProductsComponent implements OnInit {
   }
 
   onHandleClick(id: Number) {
+    this.productsService.productDelete(id).subscribe(data=>{
+      this.products = this.products.filter(ele=>ele.id!=id)
+    })
 
-    // console.log('click delete');
-    // this.products = this.productsService.productDelete(id);
-    // this.products = this.products.filter(ele=>ele.id!=id)
   }
-
-  // onHandleKeyPress(e:any){
-  //   this.product.content = e.target.value
-  // }
 
   onHandleDetail(product: Product) {
-    // this.productDetail = this.productsService.productDetail(product);
-
-    // this.productDetail = product
-  }
-
+      this.productDetail=product;
+      this.setModal = true
+    }
+    handleCancelModal(){
+      this.setModal = false
+    }
 }
